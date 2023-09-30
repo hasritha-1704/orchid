@@ -1,34 +1,33 @@
 extends layout
 
+include _includes/sharedHTMLfunctions
+
 block content
-  .row.page-header
+  .row.page-header 
     .col-lg-12
-      h1 Educated
-      span.badge.pull-right.badge-default Non-Fiction
+      h1= pageHeader.title
+      span.badge.pull-left.badge-default= book.type
   .row
     .col-xs-12.col-md-9
       .row
         .col-xs-12.col-sm-6
           p.rating
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star
+            +outputRating(book.rating)
           .panel.panel-primary
             .panel-heading
               h2.panel-title Author
             .panel-body
-              h3 Tara Westover
-              p  A beacon of resilience, chronicling her transformative journey from rural isolation to academic enlightenment
+              h3= book.author
+              p= book.author_info
           .panel.panel-primary
             .panel-heading
               h2.panel-title Literary Elements
             .panel-body
-              span.label.label-warning
-                span.glyphicon.glyphicon-ok
-                | &nbsp;Memoir
-              | &nbsp;
+              each literary_element in book.literary_elements
+                span.label.label-warning
+                  span.glyphicon.glyphicon-ok
+                  | &nbsp;#{literary_element}
+                | &nbsp;
         .col-xs-12.col-sm-6.book-preview
           h1
           </br>
@@ -37,7 +36,24 @@ block content
               h2.panel-title Book Preview
             .panel-body
               .img 
-                img(src='/images/educated.jpg', alt='Normal People')
+                img(src='/images/educated.jpg', alt='Educated')
+      .row
+        .col-xs-12
+          .panel.panel-primary.review-panel
+            .panel-heading
+              a.btn.btn-default.pull-right(href="/book/review/new2") Add review
+              h2.panel-title Customer reviews
+            .panel-body.review-container
+              each review in book.reviews
+                .row
+                  .review
+                    .well.well-sm.review-header
+                      span.rating
+                        +outputRating(review.rating)
+                      span.reviewAuthor #{review.author}
+                      small.reviewTimestamp #{review.timestamp}
+                    .col-xs-12
+                      p !{(review.reviewText).replace(/\n/g, '<br/>')}
       .row
         .col-xs-12
           .panel.panel-primary.overview-panel
@@ -47,7 +63,7 @@ block content
               .row
                 .review
                   .col-xs-12
-                    h3 A Riveting Journey from Isolation to Enlightenment
+                    h3= book.overview
       .row
         .col-xs-12
           .panel.panel-primary.review-panel
@@ -57,10 +73,7 @@ block content
               .row
                 .review
                   .col-xs-12
-                    p 
-                    p Tara Westover's "Educated" stands as a monumental testament to the transformative power of learning. From the remote mountains of Idaho to the elite universities of the world, Westover's journey is nothing short of extraordinary, and her narrative voice is as compelling as her life story.
-                    p Reading "Educated" often feels like navigating a tumultuous sea, with waves of familial loyalty clashing against the tide of enlightenment and personal growth. Westover's depiction of her family is intricate; despite the abuse and the extreme beliefs, there's a tangible thread of love and connection, making the reader grapple with the complexities of familial ties.
-                    p Westover's prose is clear-eyed and evocative, capturing the nuances of her challenging life with both compassion and objectivity. The resilience she displays, her struggle with her past and identity, and her eventual pursuit of higher education are deeply inspiring.
-                    p This memoir does more than just recount Westover's life. It prompts readers to reflect on the nature of education — not just as a means to knowledge but as a pathway to self-discovery. "Educated" is a heart-wrenching, enlightening, and ultimately triumphant exploration of one woman's determination to create a place for herself in the world against almost insurmountable odds.
+                    p= book.book_review
     .col-xs-12.col-md-3
-  
+      p.lead #{book.name} #{sidebar.context}
+      p= sidebar.callToAction

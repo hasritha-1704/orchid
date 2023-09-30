@@ -1,43 +1,33 @@
-book-info.jade file:
 extends layout
 
+include _includes/sharedHTMLfunctions
+
 block content
-  .row.page-header
+  .row.page-header 
     .col-lg-12
-      h1 Normal People
-      span.badge.pull-right.badge-default Fiction
+      h1= pageHeader.title
+      span.badge.pull-left.badge-default= book.type
   .row
     .col-xs-12.col-md-9
       .row
         .col-xs-12.col-sm-6
           p.rating
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star-empty
+            +outputRating(book.rating)
           .panel.panel-primary
             .panel-heading
               h2.panel-title Author
             .panel-body
-              h3 Sally Rooney
-              p A masterful weaver of intricate relationships and raw emotion in contemporary fiction
+              h3= book.author
+              p= book.author_info
           .panel.panel-primary
             .panel-heading
               h2.panel-title Literary Elements
             .panel-body
-              span.label.label-warning
-                span.glyphicon.glyphicon-ok
-                | &nbsp;Love
-              | &nbsp;
-              span.label.label-warning
-                span.glyphicon.glyphicon-ok
-                | &nbsp;Friendship
-              | &nbsp;
-              span.label.label-warning
-                span.glyphicon.glyphicon-ok
-                | &nbsp;Emotional Intimacy
-              | &nbsp;
+              each literary_element in book.literary_elements
+                span.label.label-warning
+                  span.glyphicon.glyphicon-ok
+                  | &nbsp;#{literary_element}
+                | &nbsp;
         .col-xs-12.col-sm-6.book-preview
           h1
           </br>
@@ -49,6 +39,23 @@ block content
                 img(src='/images/normal people.jpg', alt='Normal People')
       .row
         .col-xs-12
+          .panel.panel-primary.review-panel
+            .panel-heading
+              a.btn.btn-default.pull-right(href="/book/review/new") Add review
+              h2.panel-title Customer reviews
+            .panel-body.review-container
+              each review in book.reviews
+                .row
+                  .review
+                    .well.well-sm.review-header
+                      span.rating
+                        +outputRating(review.rating)
+                      span.reviewAuthor #{review.author}
+                      small.reviewTimestamp #{review.timestamp}
+                    .col-xs-12
+                      p !{(review.reviewText).replace(/\n/g, '<br/>')}
+      .row
+        .col-xs-12
           .panel.panel-primary.overview-panel
             .panel-heading
               h2.panel-title Overview
@@ -56,7 +63,7 @@ block content
               .row
                 .review
                   .col-xs-12
-                    h3 An Enthralling Dance of Intimacy
+                    h3= book.overview
       .row
         .col-xs-12
           .panel.panel-primary.review-panel
@@ -66,11 +73,7 @@ block content
               .row
                 .review
                   .col-xs-12
-                    p 
-                    p Sally Rooney's "Normal People" is a stunning exploration of the ever-changing dynamics between two young individuals, Connell and Marianne. Their relationship defies easy categorization, and Rooney's decision to focus on the subtle shifts in power, understanding, and emotion between them results in a hauntingly beautiful narrative. 
-                    p From the very outset, the differences in their backgrounds are clear: Connell is popular and well-liked at school but comes from a less affluent background, while Marianne is intelligent and wealthy but is ostracized by her peers. These distinctions set the stage for a compelling exploration of class, social standing, and self-worth.
-                    p Rooney's prose is deceptively simple, yet it manages to convey the profound depths of emotion and the intricacies of human relationships. There's an element of rawness in the way the author portrays young love, making readers reminisce about their own encounters with passion, misunderstandings, and growth.
-                    p One of the standout features of the novel is its portrayal of the unspoken – those in-between moments, the silent understandings, and misinterpretations that define the lives of the protagonists. Their relationship, filled with both tenderness and tension, serves as a mirror to our own experiences, making "Normal People" a universally relatable tale.
-                    p For those looking to dive into a book that offers both a slice of life and deep introspection, "Normal People" is a must-read. It's a meditation on the complexities of young love, the societal structures we navigate, and the personal growth that often comes from pain and misunderstanding.
+                    p= book.book_review
     .col-xs-12.col-md-3
-  
+      p.lead #{book.name} #{sidebar.context}
+      p= sidebar.callToAction

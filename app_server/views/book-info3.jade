@@ -1,42 +1,33 @@
 extends layout
 
+include _includes/sharedHTMLfunctions
+
 block content
-  .row.page-header
+  .row.page-header 
     .col-lg-12
-      h1 The Silent Patient
-      span.badge.pull-right.badge-default Mystery
+      h1= pageHeader.title
+      span.badge.pull-left.badge-default= book.type
   .row
     .col-xs-12.col-md-9
       .row
         .col-xs-12.col-sm-6
           p.rating
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star-empty
-            span.glyphicon.glyphicon-star-empty
+            +outputRating(book.rating)
           .panel.panel-primary
             .panel-heading
               h2.panel-title Author
             .panel-body
-              h3 Alex Michaelides
-              p  A master of psychological suspense, weaving intricate narratives that delve deep into the human psyche.
+              h3= book.author
+              p= book.author_info
           .panel.panel-primary
             .panel-heading
               h2.panel-title Literary Elements
             .panel-body
-              span.label.label-warning
-                span.glyphicon.glyphicon-ok
-                | &nbsp;Thriller
-              | &nbsp;
-              span.label.label-warning
-                span.glyphicon.glyphicon-ok
-                | &nbsp;Betrayal
-              | &nbsp;
-              span.label.label-warning
-                span.glyphicon.glyphicon-ok
-                | &nbsp;Love
-              | &nbsp;
+              each literary_element in book.literary_elements
+                span.label.label-warning
+                  span.glyphicon.glyphicon-ok
+                  | &nbsp;#{literary_element}
+                | &nbsp;
         .col-xs-12.col-sm-6.book-preview
           h1
           </br>
@@ -45,7 +36,24 @@ block content
               h2.panel-title Book Preview
             .panel-body
               .img 
-                img(src='/images/the silent patient.jpg', alt='Normal People')
+                img(src='/images/the silent patient.jpg', alt='The Silent Patient')
+      .row
+        .col-xs-12
+          .panel.panel-primary.review-panel
+            .panel-heading
+              a.btn.btn-default.pull-right(href="/book/review/new3") Add review
+              h2.panel-title Customer reviews
+            .panel-body.review-container
+              each review in book.reviews
+                .row
+                  .review
+                    .well.well-sm.review-header
+                      span.rating
+                        +outputRating(review.rating)
+                      span.reviewAuthor #{review.author}
+                      small.reviewTimestamp #{review.timestamp}
+                    .col-xs-12
+                      p !{(review.reviewText).replace(/\n/g, '<br/>')}
       .row
         .col-xs-12
           .panel.panel-primary.overview-panel
@@ -55,7 +63,7 @@ block content
               .row
                 .review
                   .col-xs-12
-                    h3 A Masterclass in Psychological Suspense
+                    h3= book.overview
       .row
         .col-xs-12
           .panel.panel-primary.review-panel
@@ -65,9 +73,7 @@ block content
               .row
                 .review
                   .col-xs-12
-                    p 
-                    p Alex Michaelides' debut novel, "The Silent Patient," is a tantalizing psychological puzzle that keeps readers on their toes from start to finish. Seamlessly weaving elements of classical tragedy with contemporary psychological intrigue, Michaelides crafts a tale that is as compelling as it is chilling.
-                    p At the heart of the story is the enigmatic Alicia Berenson, whose mute presence casts a long, haunting shadow over every page. As readers, we are drawn into the labyrinth of her mind, seeking answers, just as Theo Faber does. Michaelides brilliantly lays out clues, red herrings, and character insights, asking us to play detective alongside Theo.
-                    p One of the standout aspects of the novel is its pacing. Just when you think you've grasped the narrative, a new layer unfolds, keeping the suspense taut and the pages turning. The exploration of human psyche, trauma, and the lengths to which a person can go when pushed to the edge, makes "The Silent Patient" not just a thriller, but also a deep dive into the complexities of the human mind.
-                    p In essence, "The Silent Patient" is a mesmerizing dance of betrayal, love, and the shadows of our past. A must-read for those who relish narratives that challenge perceptions and are as twisted as the human psyche can sometimes be.
+                    p= book.book_review
     .col-xs-12.col-md-3
+      p.lead #{book.name} #{sidebar.context}
+      p= sidebar.callToAction

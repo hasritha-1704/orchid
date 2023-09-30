@@ -1,81 +1,27 @@
 extends layout
 
+include _includes/sharedHTMLfunctions
+
 block content
   #banner.page-header
     .row
       .col-lg-6
-        h1
-          | Orchid
-          small &nbsp;Sowing Seeds of Insight into Every Story.
+        h1= pageHeader.title
+         small &nbsp;#{pageHeader.strapline}
   .row
     .col-xs-12.col-sm-8
       .row.list-group
-        .col-xs-12.list-group-item
-          h4
-            a(href='/book') Normal People
-            small &nbsp;
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star-empty
-            span.badge.pull-right.badge-default Fiction
-          p.author Sally Rooney
-          p
-            span.label.label-warning Love
-            | &nbsp;
-            span.label.label-warning Friendship
-            | &nbsp;
-            span.label.label-warning Emotional Intimacy
-            | &nbsp;
-        .col-xs-12.list-group-item
-          h4
-            a(href='/book/2') Educated
-            small &nbsp;
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-            span.badge.pull-right.badge-default Non-Fiction
-          p.author Tara Westover
-          p
-            span.label.label-warning Memoir
-            | &nbsp;
-        .col-xs-12.list-group-item
-          h4
-            a(href='/book/3') The Silent Patient
-            small &nbsp;
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star-empty
-              span.glyphicon.glyphicon-star-empty
-            span.badge.pull-right.badge-default Mystery
-          p.author Alex Michaelides
-          p
-            span.label.label-warning Thriller
-            | &nbsp;
-            span.label.label-warning Betrayal
-            | &nbsp;
-            span.label.label-warning Love
-            | &nbsp;
-        .col-xs-12.list-group-item
-          h4
-            a(href='/book/4') Atomic Habits
-            small &nbsp;
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-            span.badge.pull-right.badge-default Personal Development
-          p.author James Clear
-          p
-            span.label.label-warning Self-Help
-            | &nbsp;
-            span.label.label-warning Behaviour
-            | &nbsp;
-    .col-xs-12.col-sm-4
-      p.lead
-        | Delve into the World of Literature with ORCHID – where each book unfolds like a petal, reviews blossom with insight, and readers find a garden of stories waiting to be explored.
+        each book in books
+          .col-xs-12.list-group-item
+            h4 
+              a(href=book.href)= book.name
+              small &nbsp;
+                +outputRating(book.rating)
+              span.badge.pull-right.badge-default= book.type
+            p.author= book.author
+            p
+              each literary_element in book.literary_elements
+                span.label.label-warning= literary_element
+                | &nbsp;
+    .col-xs-12.col-sm-4 
+      p.lead= sidebar

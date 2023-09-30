@@ -1,0 +1,96 @@
+/* Universal Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.5;
+}
+
+.navbar {
+    width: 100%;
+    background-color: #343a40;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .navbar-brand {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 15px;
+}
+
+.navbar .navbar-brand:hover {
+    color: #d9d9d9;
+    text-decoration: none;
+}
+
+.navbar .navbar-nav {
+    list-style-type: none;
+}
+
+.navbar .navbar-nav > li {
+    display: inline-block;
+}
+
+.navbar .navbar-nav > li > a {
+    color: #ddd;
+    padding: 10px 15px;
+    display: block;
+    text-decoration: none;
+}
+
+.navbar .navbar-nav > li > a:hover {
+    color: #fff;
+    background-color: #50595c;
+}
+
+.navbar-toggle {
+    display: none; /* Hide by default. It should be displayed on smaller screens using media query */
+    border-color: #ddd;
+}
+
+.navbar-toggle .icon-bar {
+    background-color: #ddd;
+}
+
+.container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto; /* Center the container */
+}
+
+footer {
+    padding: 20px 0;
+    background-color: #343a40;
+    color: #d9d9d9;
+    text-align: center;
+}
+
+footer small {
+    display: block;
+    margin: 10px 0;
+}
+
+/* For mobile screens */
+@media screen and (max-width: 992px) {
+    .navbar .navbar-toggle {
+        display: block;
+    }
+
+    .navbar .navbar-nav {
+        display: none;
+    }
+
+    .navbar .navbar-nav.navbar-collapse {
+        display: block;
+    }
+}
+
+/* External scripts don't need styling since they won't be rendered on the page. */
