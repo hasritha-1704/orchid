@@ -6,9 +6,9 @@ var ctrlOthers = require('../controller/others')
 
 router.get('/', ctrlBooks.homelist);
 router.get('/book', ctrlBooks.bookInfo);
-router.get('/book/2', ctrlBooks.bookInfo2);
-router.get('/book/3', ctrlBooks.bookInfo3);
-router.get('/book/4', ctrlBooks.bookInfo4);
+router.get('/book2', ctrlBooks.bookInfo2);
+router.get('/book3', ctrlBooks.bookInfo3);
+router.get('/book4', ctrlBooks.bookInfo4);
 
 router.get('/book/review/new',ctrlBooks.bookReview);
 router.get('/book/review/new2',ctrlBooks.bookReview2);
